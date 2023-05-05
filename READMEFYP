@@ -1,0 +1,34 @@
+
+How to run the code on the photo and how to run the code on video? You may use either Google Collab or Jupyter Notebook for ease.
+The script contains the following code:
+1.	Importing Important Libraries:
+import torch
+#from matplotlib import pyplot as plt
+import numpy as np
+import torch.nn as nn
+import torch.nn.functional as F
+import cv2
+2.	Download the YOLOv7 model for transfer learning on custom dataset. Please note yoloV7-FYP will already have executed experiments in the runs folder.
+!git clone https://github.com/WongKinYiu/yolov7 OR https://github.com/ci-sketch/yoloV7-FYP
+3.	Verify the current directory
+cd yolov7
+4.	Run the evaluation for Test Images.
+# Run evaluation for Image
+!python detect.py --weights best.pt --conf 0.3 --source test\
+Note: Copy best.pt and test image folder into C:\Users\YOURPCNAME\yolov7
+5.	Display Detected Images
+#display inference on ALL test images
+import glob
+from IPython.display import Image, display
+i = 0
+limit = 10000 # max images to print
+#Keep checking exp folder placed in C:\Users\YOURPCNAME\yolov7\runs\detect\ after each detection the exp value will change so you need to put latest exp value in the code.
+for imageName in glob.glob('runs\detect\exp\*.jpg'): #assuming JPG
+    if i < limit:
+      display(Image(filename=imageName))
+      print("\n")
+    i = i + 1
+6.	For Video
+# Run evaluation for Video
+# replace sample.mp4 with your video and do not forget to upload that video yolov7 directory.
+!python detect.py --weights best.pt --conf 0.25 --source sample.mp4
